@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  #  Create a service named db.
+  db:
+    restart: always
+    #   Use the Docker Image postgres. This will pull the newest release.
+    image: postgres
+    #   Give the container the name my_postgres. You can change to something else.
+    container_name: 'quarkus_postgres'
+    #   Set up the username, password, and database name. You can change these values.
+    environment:
+      - POSTGRES_USER=omri
+      - POSTGRES_PASSWORD=omri
+      - POSTGRES_DB=books
+    #   Maps port 54321 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
+    ports:
+      - '54321:5432'
+    #   Set a volume some that database is not lost after shutting down the container.
+    #   I used the name postgres-data, but you can change it to something else.
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
